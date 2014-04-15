@@ -1,0 +1,6 @@
+.project
+.settings/
+composer.lock
+vendor/
+bin/
+

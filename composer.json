@@ -1,0 +1,20 @@
+{
+	"name": "mikethomson/power-ddns",
+	"description": "DynDNS compatible updater for powerdns servers",
+	"authors": [
+		{
+			"name": "Mike Thomson",
+			"email": "mike@bluetempest.net"
+		}
+	],
+	"require": {
+		"php": ">=5.3.0"
+	},
+	"require-dev": {
+		"phpspec/phpspec": "~2.0"
+	},
+	"config": {
+		"bin-dir": "bin"
+	},
+	"autoload": {"psr-0": {"": "src"}}
+}
