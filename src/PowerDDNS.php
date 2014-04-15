@@ -30,7 +30,7 @@ class PowerDDNS
 		
 	}
 	
-	public function update($username, $password, $domain, $ip) {
+	public function update($username, $password, $domains, $ip) {
 		
 	}
 }
