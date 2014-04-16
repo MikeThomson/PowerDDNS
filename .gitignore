@@ -3,5 +3,4 @@
 composer.lock
 vendor/
 bin/
-test.php
 .idea/
