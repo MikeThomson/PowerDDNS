@@ -60,7 +60,6 @@ class DbAuth implements AuthInterface
 		$select->bindParam(':id', $userId);
 		$select->bindParam(':recordtype', $recordType);
 		$i = 0;
-		var_dump($domains);
 		foreach($domains as $key=>$domain) {
 			$select->bindParam(':domain' . $i, $domains[$key]);
 			$i++;
