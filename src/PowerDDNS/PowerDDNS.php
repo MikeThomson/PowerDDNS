@@ -23,11 +23,11 @@ class PowerDDNS
 	}
 	
 	public function getBackendAdapter() {
-		return $this->userAdapter;
+		return $this->backendAdapter;
 	}
 	
 	public function endpoint() {
-		
+
 	}
 	
 	public function update($username, $password, $domains, $ip) {
