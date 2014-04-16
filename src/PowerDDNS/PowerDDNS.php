@@ -3,6 +3,7 @@ namespace PowerDDNS;
 
 use PowerDDNS\Auth\AuthInterface;
 use PowerDDNS\Backend\BackendInterface;
+use PowerDDNS\Helper\EndpointHelper;
 
 class PowerDDNS
 {
@@ -31,6 +32,17 @@ class PowerDDNS
 	}
 	
 	public function endpoint() {
+		if(!EndpointHelper::hasAuth())
+			EndpointHelper::requestAuth();
+		$username = EndpointHelper::getUser();
+		$pass = EndpointHelper::getPass();
+		$domains = EndpointHelper::getDomains();
+		$ip = EndpointHelper::getIp();
+
+		if(count($domains) == 0)
+			EndpointHelper::sendResponse('notfqdn');
+
+		EndpointHelper::sendResponse($this->update($username, $pass, $domains, $ip));
 
 	}
 	
