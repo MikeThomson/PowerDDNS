@@ -49,15 +49,20 @@ class DbBackend implements BackendInterface
 	{
 		// @TODO this should cache the zone id instead, if possible
 		// get the current serial
-		$select = $this->pdo->prepare('SELECT id, notified_serial FROM domains WHERE name=:zone');
+		$select = $this->pdo->prepare('SELECT id, content FROM records WHERE name=:zone AND type = :type');
 		$select->bindParam(':zone', $zone);
+		$soa = 'SOA';
+		$select->bindParam(':type', $soa);
 		if($select->execute()) {
 			if($row = $select->fetch()) {
-				$serial = (int) $row['notified_serial'];
+				$soa = $row['content'];
+				$data = explode(' ', $soa);
+				$serial = (int) ($data[2]);
 				$id = $row['id'];
 				$serial += 1;
-				$insert = $this->pdo->prepare('UPDATE domains SET notified_serial = :serial WHERE id=:id');
-				$insert->bindParam(':serial', $serial);
+				$data[2] = $serial;
+				$insert = $this->pdo->prepare('UPDATE records SET content = :data WHERE id=:id');
+				$insert->bindParam(':data', implode(' ' , $data));
 				$insert->bindParam(':id', $id);
 				$insert->execute();
 			}
