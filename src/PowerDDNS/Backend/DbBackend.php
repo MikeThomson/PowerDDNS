@@ -4,10 +4,23 @@ namespace PowerDDNS\Backend;
 
 use PowerDDNS\Record;
 
+/**
+ * Class DbBackend
+ * Provides control for PowerDNS instances backing to a relational database
+ * @package PowerDDNS\Backend
+ */
 class DbBackend implements BackendInterface
 {
+	/**
+	 * The PDO instance to use for querying the database
+	 * @var \PDO
+	 */
 	private $pdo;
 
+	/**
+	 * Constructor that can either take a PDO instance or a config array that will be passed to \PowerDDNS\PDOFactory
+	 * @param array|\PDO
+	 */
 	public function __construct($params) {
 		if(is_array($params)) {
 			$this->pdo = PDOFactory::get($params);
@@ -18,9 +31,15 @@ class DbBackend implements BackendInterface
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * @param string $domain
+	 * @param string $newIp
+	 * @param string $recordType
+	 * @return Record
+	 */
 	public function updateRecord($domain, $newIp, $recordType = 'A')
 	{
-		// TODO: write logic here
 		$update = $this->pdo->prepare('UPDATE records SET content = :ip WHERE name=:domain AND type = :type');
 		$update->bindParam(':domain', $domain);
 		$update->bindParam(':ip', $newIp);
@@ -45,9 +64,14 @@ class DbBackend implements BackendInterface
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * @param string $zone zone to update
+	 */
 	public function updateSerial($zone)
 	{
 		// @TODO this should cache the zone id instead, if possible
+		// @TODO probbaly should implement standard date-based serials
 		// get the current serial
 		$select = $this->pdo->prepare('SELECT id, content FROM records WHERE name=:zone AND type = :type');
 		$select->bindParam(':zone', $zone);

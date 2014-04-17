@@ -9,6 +9,11 @@
 namespace PowerDDNS;
 
 
+/**
+ * Class Response
+ * Container class for all of the repsonse codes in the DynDNS protocol
+ * @package PowerDDNS
+ */
 class Response {
 	const BADAUTH = 'badauth';
 	const NOT_DONATOR = '!donator';
