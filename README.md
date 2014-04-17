@@ -8,7 +8,7 @@ I'll happily take pull requests from people who implement more auth / backend in
 
 Installing
 ----------
-Installation is easy with composer, just run ` php composer.phar require mikethomson mikethomson/power-ddns `
+Installation is easy with composer, just run ` php composer.phar require mikethomson/power-ddns dev-master `
 In the resources folder you will find the SQL schema that is added on to the PowerDNS database to add users and
 permissions for PowerDDNS. The DbBackend uses MD5 hashed passwords by default. The permissions table is a simple join
 table with the id of the user and the id of the record they should be allowed to update.
